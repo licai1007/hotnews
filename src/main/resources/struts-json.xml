@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="other" namespace="/" extends="json-default">
+		<action name="wechatCallback" class="com.hpit.hotnews.action.WeiXinAction" method="webWXCallback">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="selectUserLocation" class="com.hpit.hotnews.action.WeiXinAction" method="selectUserLocation">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="upload" class="com.hpit.hotnews.action.UploadAction" method="upload">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="weather" class="com.hpit.hotnews.action.WeatherAction" method="getWeather">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="count" class="com.hpit.hotnews.action.VisitCountAction">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+	<util:properties location="classpath:jdbc-config.properties"
+		id="jdbcConfig" />
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="url" value="#{jdbcConfig.url}" />
+		<property name="driverClassName" value="#{jdbcConfig.driver}" />
+		<property name="username" value="#{jdbcConfig.username}" />
+		<property name="password" value="#{jdbcConfig.password}" />
+		<property name="maxActive" value="#{jdbcConfig.maxActive}" />
+		<property name="initialSize" value="#{jdbcConfig.initialSize}" />
+		<property name="testWhileIdle" value="#{jdbcConfig.testWhileIdle}"/>
+		<property name="validationQuery" value="#{jdbcConfig.validationQuery}" /> 
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<array>
+				<value>com/hpit/hotnews/entity/User.hbm.xml</value>
+				<value>com/hpit/hotnews/entity/News.hbm.xml</value>
+				<value>com/hpit/hotnews/entity/Comment.hbm.xml</value>
+				<value>com/hpit/hotnews/entity/Reply.hbm.xml</value>
+			</array>
+		</property>
+	</bean>
+	<bean class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="alwaysUseNewSession" value="false" />
+	</bean>
+	<context:annotation-config />
+	<context:component-scan base-package="com.hpit" />
+	
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+   <tx:annotation-driven transaction-manager="txManager"/>
+</beans>

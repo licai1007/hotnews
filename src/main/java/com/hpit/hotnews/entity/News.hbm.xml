@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.hpit.hotnews.entity.News" table="tb_news" lazy="false">
+		<id name="newsid" column="newsid" type="java.math.BigDecimal" length="5">
+			<generator class="assigned"/>
+		</id>
+		<property name="title" column="title" type="java.lang.String" length="30"/>
+		<property name="content" column="content" type="java.lang.String" length="2000"/>
+		<property name="pictureUrl" column="pictureUrl" type="java.lang.String" length="100"/>
+		<property name="author" column="author" type="java.lang.String" length="30"/>
+		<property name="thumbsUp" column="thumbsUp" type="java.math.BigDecimal" length="5"/>
+		<property name="collect" column="collect" type="java.math.BigDecimal" length="1"/>
+		<property name="createdate" column="createdate" type="java.util.Date"/>
+		<property name="at" column="abstract" type="java.lang.String" length="80"/>
+		<property name="source" column="source" type="java.lang.String" length="10"/>
+	</class>
+</hibernate-mapping>

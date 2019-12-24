@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.allowed.action.names" value="[a-zA-Z0-9._!/\-]*"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.multipart.maxSize" value="524288000"/>    <!-- 上传限制500M -->
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="index" class="com.hpit.hotnews.action.IndexAction" method="showIndex">
+			<result name="success">/WEB-INF/view/index.jsp</result>
+		</action>
+		<action name="video" class="com.hpit.hotnews.action.IndexAction" method="video">
+			<result name="video">/WEB-INF/view/video.jsp</result>
+		</action>
+	</package>
+	<package name="user" namespace="/user" extends="default">
+		<action name="login_*" class="com.hpit.hotnews.action.LoginAction">
+			<result name="success" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+		</action>
+		<action name="register_*" class="com.hpit.hotnews.action.RegisterAction">
+			<result name="success" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+		</action>
+		<action name="code" class="com.hpit.hotnews.action.CodeAction" method="code">
+		</action>
+		<action name="logout_*" class="com.hpit.hotnews.action.LogoutAction">
+			<result name="success" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+			<allowed-methods>execute</allowed-methods>
+		</action>
+		<action name="findPwd_*" class="com.hpit.hotnews.action.FindPwdAction">
+			<result name="success" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+		</action>
+		<action name="bindMail_*" class="com.hpit.hotnews.action.BindMailAction">
+			<result name="success" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">{1}</param>
+			</result>
+		</action>
+		<action name="ownerCheck" class="com.hpit.hotnews.action.OwnerCheckAction" method="ownerCheck">
+		</action>
+		<action name="wechatSaoma" class="com.hpit.hotnews.action.WeiXinAction" method="webWXSaoma">
+			<result name="success">/WEB-INF/view/saoma.jsp</result>
+		</action>
+		<action name="wechatLogin" class="com.hpit.hotnews.action.WeiXinAction" method="webWXLogin">
+			<result name="success">/WEB-INF/view/loginsuccess.jsp</result>
+		</action>
+	</package>
+	<package name="news" namespace="/" extends="struts-default">
+		<action name="news" class="com.hpit.hotnews.action.NewsAction">
+			<result name="success">/WEB-INF/view/news.jsp</result>
+		</action>
+		<action name="dianzan" class="com.hpit.hotnews.action.DianZanAction" method="zan"></action>
+	</package>
+	<package name="comment" namespace="/comment" extends="default">
+		<action name="agree" class="com.hpit.hotnews.action.AgreeAction" method="agreeComment"></action>
+	</package>
+	<package name="admin" namespace="/admin" extends="default">
+		<interceptors>
+			<interceptor name="adminInterceptor" class="com.hpit.hotnews.interceptors.AdminInterceptor"/>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="adminInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		<global-results>
+			<result name="skip" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">${flag}</param>
+			</result>
+		</global-results>
+		<action name="download" class="com.hpit.hotnews.action.DownloadAction">
+			<result name="success" type="stream">
+				<param name="inputName">downLoadFile</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<!-- <interceptor-ref name="myStack"/> -->
+		</action>
+		<action name="publishComment" class="com.hpit.hotnews.action.PublishCommentAction">
+			<result name="success" type="chain">
+			<param name="namespace">/</param>
+			<param name="actionName">news</param>
+			</result>
+		</action>
+		<action name="publishReply" class="com.hpit.hotnews.action.PublishReplyAction">
+			<result name="success" type="chain">
+				<param name="namespace">/</param>
+				<param name="actionName">news</param>
+			</result>
+		</action>
+	</package>
+	<include file="struts-json.xml"/>
+</struts>

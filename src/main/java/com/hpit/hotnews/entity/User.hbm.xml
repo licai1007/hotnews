@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="com.hpit.hotnews.entity.User" table="tb_user" lazy="false">
+		<id name="userid" column="userid" type="java.math.BigDecimal" length="5">
+			<generator class="assigned"/>
+		</id>
+		<property name="username" column="username" type="java.lang.String" length="30"/>
+		<property name="password" column="password" type="java.lang.String" length="50"/>
+		<property name="email" column="email" type="java.lang.String" length="30"/>
+		<property name="openid" column="openid" type="java.lang.String" length="50"/>
+		<property name="nickname" column="nickname" type="java.lang.String" length="50"/>
+		<property name="sex" column="sex" type="java.lang.String" length="1"/>
+		<property name="city" column="city" type="java.lang.String" length="20"/>
+		<property name="headimgurl" column="headimgurl" type="java.lang.String" length="300"/>
+		<property name="uuid" column="uuid" type="java.lang.String" length="50"/>
+		<property name="createdate" column="createdate" type="java.util.Date"/>
+		<property name="modifytime" column="modifytime" type="java.util.Date"/>
+	</class>
+</hibernate-mapping>
