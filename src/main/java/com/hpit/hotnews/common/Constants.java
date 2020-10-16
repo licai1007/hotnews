@@ -15,7 +15,7 @@ public class Constants {
     public final static String WEB_CODE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
     //微信回调地址(获取code)
     public final static String SCOPE = "snsapi_userinfo";
-    public final static String CALLBACK_DOMAIN = "http://75yyze.natappfree.cc";
+    public final static String CALLBACK_DOMAIN = "http://5b1e9866.ngrok.io";
     public final static String REDIRECT_URI = CALLBACK_DOMAIN + "/hotnews/user/wechatLogin?position=POSITION";
 	/**
      * 拼接获取code的:接口地址

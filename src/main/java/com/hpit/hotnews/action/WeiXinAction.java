@@ -84,6 +84,7 @@ public class WeiXinAction extends ActionSupport {
 						user.setCreatedate(new Date());
 						user.setModifytime(new Date());
 						userService.wxLogin(user);
+						session.setAttribute("user","");
 					}
 				}
 			} catch (Exception e) {
