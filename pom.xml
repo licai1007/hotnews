@@ -8,7 +8,7 @@
   <name>hotnews Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
-	<spring.version>3.2.6.RELEASE</spring.version>
+	<spring.version>5.2.20.RELEASE</spring.version>
 	<struts.version>2.5.14</struts.version>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
